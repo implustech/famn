@@ -17,7 +17,7 @@ export class LoginComponent {
   ngOnInit() {
     this.loginService.loginToken()
       .then(res => {
-        this.router.navigate(['/module', 'home'])
+        this.router.navigate(['/module'])
       })
       .catch(err => {
         // No token in localStorage, should go local authentication way
@@ -28,7 +28,7 @@ export class LoginComponent {
   onSubmit() {
     this.loginService.loginLocal(this.user)
       .then(res => {
-        this.router.navigate(['/module', 'home'])
+        this.router.navigate(['/module'])
       })
       .catch(err => {
         console.log(err)

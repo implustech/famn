@@ -1,4 +1,4 @@
 export default {
     port: 80,
-    tokenKey: 'imadminseed-jwt'
+    tokenKey: 'famn-jwt'
 }
