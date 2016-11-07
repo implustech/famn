@@ -1,0 +1,21 @@
+version: '2'
+services:
+  famn:
+    build:
+      context: ..
+      dockerfile: ./docker/prod.dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - "8080:8080"
+    volumes:
+      - ~/docker/imadminseed/log:/var/log/imadminseed
+    links:
+      - mongo
+  mongo:
+    image: mongo:3.2
+    ports:
+      - "27017:27017"  # for host connect
+    volumes:
+      - ~/docker/mongodb/log:/var/log/mongodb
+      - ~/docker/data/db:/data/db

@@ -1,0 +1,32 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directory
+# Commenting this out is preferred by some people, see
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
+/node_modules/
+/typings/
+
+# Users Environment Variables
+.DS_Store
+.lock-wscript
+.tsdrc
+.typingsrc
+.awcache
+yarn-error.log
+npm-debug.log
+
+
+# IDE configuration files
+.idea
+.vscode
+*.iml
+
+# target
+dist

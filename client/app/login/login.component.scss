@@ -1,0 +1,23 @@
+md-content.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 50px;
+
+  md-card {
+    width: 500px;
+    padding: 0;
+  }
+
+  md-card-content {
+    padding: 16px;
+
+    md-button:hover {
+      background-color: transparent;
+    }
+  }
+
+}
+

@@ -1,0 +1,6 @@
+apps:
+  - script: dist/server/server.bundle.js
+    name: app
+    watch: false
+    # instances: 4
+    # exec_mode: cluster

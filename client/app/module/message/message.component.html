@@ -1,0 +1,19 @@
+<md-card>
+<md-toolbar color="accent">Messages</md-toolbar>
+<md-data-table layout-fill [selectable]="true">
+  <thead>
+  <tr md-data-table-header-selectable-row>
+    <th class="md-text-cell">Id</th>
+    <th>Email</th>
+    <th>Message</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let message of messages"  md-data-table-selectable-row >
+    <td class="md-text-cell">{{ message._id }}</td>
+    <td>{{ message.email }}</td>
+    <td>{{ message.message }}</td>
+  </tr>
+  </tbody>
+</md-data-table>
+</md-card>

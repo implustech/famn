@@ -1,0 +1,25 @@
+<md-content class="signup" layout="row" layout-wrap layout-align="center start">
+  <md-card class="md-elevation-z9">
+    <md-toolbar color="primary">Implus Admin Seed</md-toolbar>
+    <md-card-content>
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+        <p>
+          <md-input style="width: 100%" placeholder="Fullname" [(ngModel)]="userModel.fullname" name="fullname"></md-input>
+        </p>
+        <p>
+          <md-input style="width: 100%" placeholder="Email" [(ngModel)]="userModel.email" name="email"></md-input>
+        </p>
+        <p>
+          <md-input style="width: 100%" placeholder="Password" [(ngModel)]="userModel.password" name="password"></md-input>
+        </p>
+
+        <div layout="row" layout-align="end start">
+          <button type="submit" md-raised-button color="primary" [disabled]="!signupForm.form.valid">Sign up</button>
+        </div>
+        <div layout="row" layout-align="end start">
+          <button  md-button color="primary" [routerLink]="['/login']">Back</button>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</md-content>

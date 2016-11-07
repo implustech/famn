@@ -1,0 +1,23 @@
+version: '2'
+services:
+  famn:
+    build:
+      context: ..
+      dockerfile: ./docker/dev.dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3030:3030"
+    volumes:
+      - ../app:/famn/app
+      - ../client:/famn/client
+      - ../server.ts:/famn/server.ts
+    links:
+      - mongo
+  mongo:
+    image: mongo:3.3
+    ports:
+      - "27017:27017"  # for host connect
+    volumes:
+      - ~/docker/mongodb/log:/var/log/mongodb
+      - ~/docker/data/db:/data/db

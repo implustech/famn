@@ -1,0 +1,36 @@
+@import '~@angular/material/core/style/variables';
+@import '~@angular/material/core/theming/palette';
+@import '~@angular/material/core/theming/theming';
+@import '../../core/style/layout';
+
+md-divider {
+  display: block;
+  border-top-width: 1px;
+  border-top-style: solid;
+  margin: 0;
+
+  &[md-inset] {
+    margin-left: $baseline-grid * 10;
+  }
+}
+
+.layout-row {
+  & > md-divider {
+    border-top-width: 0;
+    border-right-width: 1px;
+    border-right-style: solid;
+
+  }
+}
+
+// Theme
+
+md-divider {
+  border-top-color: md-color($md-light-theme-foreground, divider);
+}
+
+.layout-row {
+  & > md-divider {
+    border-right-color: md-color($md-light-theme-foreground, divider);
+  }
+}

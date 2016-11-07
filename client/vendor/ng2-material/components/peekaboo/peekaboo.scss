@@ -1,0 +1,14 @@
+[md-peekaboo] {
+  &[breakAction=show] {
+    display: none;
+    &.md-peekaboo-active {
+      display: inherit;
+    }
+  }
+  &[breakAction=hide] {
+    display: inherit;
+    &.md-peekaboo-active {
+      display: none;
+    }
+  }
+}
