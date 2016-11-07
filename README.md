@@ -24,6 +24,8 @@ famn borrowed much from [angular2-webpack-starter](https://github.com/AngularCla
 
 ### Development
 
+#### local
+
 ```sh
 # prepare environment
 npm i -g nodemon ts-node typescript@2.0
@@ -36,12 +38,16 @@ yarn run build:client:dev
 
 # start server with webpack hmr
 yarn run start:hmr
+```
+
+#### docker (recommended)
+
+```sh
+# docker way which is recommended
+docker-compose -f ./docker/docker-compose.dev.yml up --build
 
 # real time service, check the new message in message module after running below command
 curl 'http://localhost:3030/messages/' -H 'Content-Type: application/json' --data-binary '{ "email": "yourname@yourdomain.com", "message": "Hello Implus" }'
-
-# docker way which is recommended
-docker-compose -f ./docker/docker-compose.dev.yml up --build
 ```
 
 - Go to `http://localhost:3030` for web
@@ -59,3 +65,4 @@ docker-compose -f ./docker/docker-compose.prod.yml up --build -d
 - ( ) robust material design data-table
 - ( ) charts
 - ( ) using npm package of ng2-material instead of local build
+- ( ) unit test
