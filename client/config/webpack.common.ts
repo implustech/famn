@@ -24,7 +24,7 @@ const HtmlElementsPlugin = require('./html-elements-plugin')
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development'
 const HMR = helpers.hasProcessFlag('hot')
 const METADATA = {
-  title: 'Implus Admin Seed',
+  title: 'FAMN Angular2 client-server boilerplate',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 }
@@ -111,11 +111,11 @@ export default (options) => {
          */
         {
           test: /\.ts$/,
-          loaders: [
+          use: [
             '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
             'awesome-typescript-loader',
             'angular2-template-loader',
-            // '@angularclass/hmr-loader'
+            // 'angular-router-loader' // angular2 module lazy loader
           ],
           exclude: [/\.(spec|e2e)\.ts$/]
         },
@@ -127,7 +127,7 @@ export default (options) => {
          */
         {
           test: /\.json$/,
-          loader: 'json-loader'
+          use: 'json-loader'
         },
 
         /*
@@ -138,7 +138,7 @@ export default (options) => {
         {
           test: /\.css$/,
           // loaders: ['to-string-loader', 'css-loader']
-          loaders: ['style-loader', 'css-loader']
+          use: ['style-loader', 'css-loader']
         },
 
         /*
@@ -149,11 +149,11 @@ export default (options) => {
         {
           test: /\.scss$/,
           exclude: /node_modules|global/,
-          loaders: ['raw', 'sass']
+          use: ['raw-loader', 'sass-loader']
         },
         {
           test: /global\.scss$/,
-          loaders: ['style', 'css', 'sass']
+          use: ['style-loader', 'css-loader', 'sass-loader']
         },
 
         /* Raw loader support for *.html
@@ -163,7 +163,7 @@ export default (options) => {
          */
         {
           test: /\.html$/,
-          loader: 'raw-loader',
+          use: 'raw-loader',
           exclude: [helpers.root('client/index.html')]
         },
 
@@ -171,7 +171,7 @@ export default (options) => {
         */
         {
           test: /\.(jpg|png|gif)$/,
-          loader: 'file'
+          use: 'file-loader'
         },
         /* URL loader for various assets
           */
@@ -182,27 +182,27 @@ export default (options) => {
 
         {
           test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-          loader: 'url?limit=10000&minetype=application/font-woff'
+          use: 'url?limit=10000&minetype=application/font-woff'
         },
         {
           test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-          loader: 'url?limit=10000&minetype=application/font-woff'
+          use: 'url?limit=10000&minetype=application/font-woff'
         },
         {
           test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-          loader: 'url?limit=10000&minetype=application/octet-stream'
+          use: 'url?limit=10000&minetype=application/octet-stream'
         },
         {
           test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-          loader: 'file'
+          use: 'file'
         },
         {
           test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-          loader: 'url?limit=10000&minetype=image/svg+xml'
+          use: 'url?limit=10000&minetype=image/svg+xml'
         },
         {
           test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i,
-          loader: 'url?limit=10000'
+          use: 'url?limit=10000'
         },
       ]
     },

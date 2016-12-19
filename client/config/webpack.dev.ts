@@ -144,11 +144,11 @@ export default webpackMerge(commonConfig({ env: ENV }), {
          *
          * See: https://github.com/wbuchwalter/tslint-loader
          */
-        tslint: {
-          emitErrors: false,
-          failOnHint: false,
-          resourcePath: 'client'
-        },
+        // tslint: {
+        //   emitErrors: false,
+        //   failOnHint: false,
+        //   resourcePath: 'client'
+        // },
 
       }
     }),
