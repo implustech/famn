@@ -12,10 +12,14 @@ import headTags from './html-head-config'
 // problem with copy-webpack-plugin
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 const HtmlElementsPlugin = require('./html-elements-plugin')
+const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin')
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin')
+
+
 
 
 /*
@@ -23,6 +27,7 @@ const HtmlElementsPlugin = require('./html-elements-plugin')
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development'
 const HMR = helpers.hasProcessFlag('hot')
+const AOT = helpers.hasNpmFlag('aot')
 const METADATA = {
   title: 'FAMN Angular2 client-server boilerplate',
   baseUrl: '/',
@@ -63,9 +68,7 @@ export default (options) => {
     entry: {
 
       'polyfills': './client/polyfills.ts',
-      'vendor': './client/vendor.ts',
       'main': './client/main.ts'
-
     },
 
     /*
@@ -116,6 +119,8 @@ export default (options) => {
             'awesome-typescript-loader',
             'angular2-template-loader',
             // 'angular-router-loader' // angular2 module lazy loader
+            'angular-router-loader?loader=system&genDir=compiled/src/app&aot=' + AOT
+
           ],
           exclude: [/\.(spec|e2e)\.ts$/]
         },
@@ -214,13 +219,14 @@ export default (options) => {
     */
     plugins: [
 
+
       /*
        * Plugin: ForkCheckerPlugin
        * Description: Do type checking in a separate process, so webpack don't need to wait.
        *
        * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
        */
-      new ForkCheckerPlugin(),
+      new CheckerPlugin(),
       /*
        * Plugin: CommonsChunkPlugin
        * Description: Shares common code between the pages.
@@ -230,7 +236,7 @@ export default (options) => {
        * See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
        */
       new CommonsChunkPlugin({
-        name: ['polyfills', 'vendor'].reverse()
+        name: ['polyfills']
       }),
 
 
@@ -313,6 +319,36 @@ export default (options) => {
       new HtmlElementsPlugin({
         headTags: headTags
       }),
+
+      /**
+       * Plugin LoaderOptionsPlugin (experimental)
+       *
+       * See: https://gist.github.com/sokra/27b24881210b56bbaff7
+       */
+      new LoaderOptionsPlugin({}),
+
+
+      // Fix Angular 2
+      new NormalModuleReplacementPlugin(
+        /facade(\\|\/)async/,
+        helpers.root('node_modules/@angular/core/src/facade/async.js')
+      ),
+      new NormalModuleReplacementPlugin(
+        /facade(\\|\/)collection/,
+        helpers.root('node_modules/@angular/core/src/facade/collection.js')
+      ),
+      new NormalModuleReplacementPlugin(
+        /facade(\\|\/)errors/,
+        helpers.root('node_modules/@angular/core/src/facade/errors.js')
+      ),
+      new NormalModuleReplacementPlugin(
+        /facade(\\|\/)lang/,
+        helpers.root('node_modules/@angular/core/src/facade/lang.js')
+      ),
+      new NormalModuleReplacementPlugin(
+        /facade(\\|\/)math/,
+        helpers.root('node_modules/@angular/core/src/facade/math.js')
+      ),
 
     ],
 

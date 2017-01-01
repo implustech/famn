@@ -23,7 +23,8 @@ RUN mkdir /famn
 WORKDIR /famn
 
 COPY package.json /famn/package.json
-RUN yarn --ignore-optional
+RUN yarn --ignore-optional && yarn cache clean
+
 
 COPY . /famn
 

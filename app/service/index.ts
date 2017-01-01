@@ -6,6 +6,6 @@ export default function () {
   const app = this
 
   app.configure(authentication)
-  app.configure(user)
-  app.configure(message)
+    .configure(user)
+    .configure(message)
 }

@@ -2,9 +2,7 @@ const feathers = require('feathers/client')
 const socketio = require('feathers-socketio/client')
 const io = require('socket.io-client')
 const hooks = require('feathers-hooks')
-const localstorage = require('feathers-localstorage')
-
-const authentication = require('feathers-authentication/client')
+const authentication = require('feathers-authentication-client')
 
 import { Injectable } from '@angular/core'
 import { Router, CanActivate } from '@angular/router'
@@ -18,41 +16,42 @@ import config from '../config/config'
  */
 export class SocketService {
   public socket: any
-  private _app: any
+  public app: any
 
   constructor() {
     this.socket = io(helpers.getHost())
-    this._app = feathers()
+    this.app = feathers()
       .configure(socketio(this.socket))
       .configure(hooks())
       .configure(authentication({
-        tokenKey: config.tokenKey,
+        cookie: 'famn-jwt',
+        storageKey: 'famn-jwt',
         storage: window.localStorage
       }))
   }
 
   getService(service) {
-    return this._app.service(service)
+    return this.app.service(service)
   }
 
   authenticate(option?: any) {
-    return this._app.authenticate(option)
+    return this.app.authenticate(option)
   }
 
   logout() {
-    return this._app.logout()
+    return this.app.logout()
   }
 
   getUser() {
-    return this._app.get('user')
+    return this.app.get('user')
   }
 
   getToken() {
-    return this._app.get('token')
+    return this.app.get('token')
   }
 
   isLogin() {
-      return this.getUser() ? true : false
+    return this.getUser() ? true : false
   }
 }
 

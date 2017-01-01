@@ -1,30 +1,10 @@
 @import '~@angular/material/core/style/variables';
 @import '~@angular/material/core/theming/palette';
 @import '~@angular/material/core/theming/all-theme';
-@import '../style';
 
 
 footer-cmp {
   width: 100%;
   display: block;
-  .md-toolbar-layout {
-    width: 100%;
-  }
-  md-toolbar-row {
-    @include md-medium-tall-toolbar();
-    margin: auto;
-    padding: 0 25px;
-    width: 80%;
-    @media screen and (min-width: $layout-breakpoint-lg - 1) {
-      width: $app-content-lg;
-    }
-    @media screen and (max-width: $layout-breakpoint-md) {
-      width: $app-content-md;
-    }
-    @media screen and (max-width: $layout-breakpoint-sm) {
-      width: 100%;
-      margin: 0;
-    }
-  }
 }
 

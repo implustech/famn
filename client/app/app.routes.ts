@@ -2,6 +2,8 @@ import { LoginComponent } from './login/login.component'
 import { SignupComponent } from './signup/signup.component'
 import { PageNotFoundComponent } from './404/404.component'
 import ModModule from './module'
+import { AuthGuard } from './app.service'
+
 
 
 export const ROUTES = [
@@ -19,10 +21,11 @@ export const ROUTES = [
     component: SignupComponent
   },
   {
-    path: 'module', loadChildren: () => ModModule
+    path: 'module',
+    loadChildren: () => ModModule,
     // loadChildren: () => System.import('./module')
     //   .then((comp: any) => comp.default)
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: '404-page',

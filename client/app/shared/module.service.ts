@@ -20,12 +20,11 @@ export class ModuleService {
         this.modules = res.json()
         resolve()
       })
-
     })
   }
 
   getModules(): Promise<ModuleMeta[]> {
-    return this._promise.then(() => { return this.modules })
+    return this._promise.then(() => this.modules)
   }
 
   getModule(id: string): Promise<ModuleMeta> {
@@ -35,8 +34,8 @@ export class ModuleService {
         if (m.id === id) {
           pick = m
         }
-      });
+      })
       return pick
-    });
+    })
   }
 }

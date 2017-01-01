@@ -6,7 +6,7 @@ import * as bodyParser from 'body-parser'
 import * as mongoose from 'mongoose'
 const feathers = require('feathers')
 const serveStatic = require('feathers').static
-const configuration = require('feathers-configuration')
+const conf = require('feathers-configuration')
 const hooks = require('feathers-hooks')
 const rest = require('feathers-rest')
 const socketio = require('feathers-socketio')
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'development' && process.env.HMR) {
   app.configure(webpackdev.default)
 }
 
-app.configure(configuration(path.join(path.resolve(), 'app')));
+app.configure(conf());
 
 (mongoose as any).Promise = global.Promise
 const config = app.get('mongodb')

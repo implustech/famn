@@ -7,7 +7,8 @@ import { RouterModule } from '@angular/router'
  * Import @angular/material, ng2-material
  */
 import { MaterialModule } from '@angular/material'
-import { Ng2MaterialModule } from '../../../vendor/ng2-material'
+// import { Ng2MaterialModule } from '../../../vendor/ng2-material'
+import { Ng2MaterialModule } from 'ng2-material'
 
 import { DashboardComponent } from './dashboard.component'
 import { TodoComponent } from '../../widgets/todo'

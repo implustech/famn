@@ -4,26 +4,22 @@
       <h3>famn</h3>
     </md-toolbar>
     <md-list>
-      <md-list-item [class.md-active]="navigation?.currentTitle==value.name"
-                    *ngFor="let value of modules">
-        <button md-button disableRipple="true"
-                md-ripple md-ripple-speed-factor="0.3"
-                (click)="navigation.currentTitle=value.name"
-                [routerLink]="['/module', value.id]">
+      <md-list-item [class.md-active]="navigation?.currentTitle==value.name" *ngFor="let value of modules">
+        <button md-button disableRipple="true" md-ripple md-ripple-speed-factor="0.3" (click)="navigation.currentTitle=value.name"
+          [routerLink]="['/module', value.id]">
           {{ value.name }}
         </button>
       </md-list-item>
     </md-list>
   </md-sidenav>
-
   <md-content #content>
-    <md-toolbar color="primary" class="fixed-toolbar"
+    <!--<md-toolbar color="primary" class="fixed-toolbar"
                 md-peekaboo [scroller]="content.parentElement"
                 #peekaboo="mdPeekaboo"
                 [break]="190"
                 breakAction="show">
-    </md-toolbar>
-    <md-toolbar color="primary" class="fixed-toolbar" [style.top]="getScrollTop(peekaboo)">
+    </md-toolbar>-->
+    <!--<md-toolbar color="primary" class="fixed-toolbar" [style.top]="getScrollTop(peekaboo)">
       <button md-icon-button
               hide-gt-md
               (click)="menu.open($event)"
@@ -37,28 +33,34 @@
         <span class="verbose-title" *ngIf="navigation?.currentTitle != site">Modules <small>–</small>&nbsp;</span>
         <span>{{navigation?.currentTitle}}</span>
       </span>
-      <!--<span flex></span>-->
-      <!--<a md-peekaboo [scroller]="content.parentElement"
+      <span flex></span>
+      <a md-peekaboo [scroller]="content.parentElement"
          href="https://github.com/justindujardin/ng2-material/releases/tag/v{{version}}"
          target="_blank"
          [breakMd]="72"
          breakAction="show"
-         *ngIf="version" class="md-caption">v{{version}}</a>-->
-    </md-toolbar>
-
-    <md-toolbar color="primary" class="hero">
+         *ngIf="version" class="md-caption">v{{version}}</a>
+    </md-toolbar>-->
+    <!--<md-toolbar color="primary" class="hero">
       <h1 md-peekaboo [scroller]="content.parentElement"
           [breakMd]="72"
           [breakXs]="20"
           breakAction="hide">{{navigation?.currentTitle}}</h1>
+    </md-toolbar>-->
+    <md-toolbar color="primary" class="fixed-toolbar">
+      <button md-icon-button hide-gt-md (click)="menu.open($event)" aria-label="Home">
+        <md-icon class="md-dark">menu</md-icon>
+      </button>
+      <span>
+        <span class="verbose-title" *ngIf="navigation?.currentTitle != site">Modules <small>–</small>&nbsp;</span>
+      <span>{{navigation?.currentTitle}}</span>
+      </span>
     </md-toolbar>
-
     <main layout="row" layout-align="center center">
       <md-content class="examples" md-scroll-y layout-padding>
         <router-outlet></router-outlet>
       </md-content>
     </main>
-
     <footer-cmp></footer-cmp>
   </md-content>
 </md-sidenav-layout>

@@ -11,14 +11,12 @@ import { SignupService } from './signup.service'
   providers: [SignupService],
   templateUrl: 'signup.component.html',
   styleUrls: ['./signup.component.scss']
-
 })
 
 export class SignupComponent {
+  private userModel = {}
+
   constructor(private router: Router, private signupService: SignupService) {}
-
-  userModel = {}
-
   onSubmit() {
     this.signupService.signup(this.userModel).then(res => {
       if (res) this.router.navigate(['/'])

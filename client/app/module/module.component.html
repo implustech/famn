@@ -1,0 +1,33 @@
+<md-sidenav-container>
+  <md-sidenav #menu class="app-menu" mode="side" align="start" opened="true">
+    <md-toolbar routerLink="/module">
+      <h3>famn</h3>
+    </md-toolbar>
+    <md-list>
+      <md-list-item [class.md-active]="navigation?.currentTitle==value.name" *ngFor="let value of modules">
+        <button md-button disableRipple="true" md-ripple md-ripple-speed-factor="0.3" (click)="navigation.currentTitle=value.name"
+          [routerLink]="['/module', value.id]">
+          {{ value.name }}
+        </button>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+  <div #content class="app-content">
+    <md-toolbar color="primary" class="fixed-toolbar md-elevation-z6">
+      <button md-icon-button (click)="menu.toggle()"
+        fxHide="false" fxHide.gt-md fxLayoutAlign="center center">
+        <md-icon class="md-dark">list</md-icon>
+      </button>
+      <span>
+        <span class="verbose-title" *ngIf="navigation?.currentTitle != site">Modules <small>–</small>&nbsp;</span>
+        <span>{{navigation?.currentTitle}}</span>
+      </span>
+    </md-toolbar>
+    <div class="app-content-inner" fxLayout="column" fxLayoutAlign="space-between">
+      <div fxFlex>
+        <router-outlet></router-outlet>
+      </div>
+      <footer-cmp fxFlex="50px"></footer-cmp>
+    </div>
+  </div>
+</md-sidenav-container>

@@ -2,21 +2,23 @@ import devConfig from './config.dev'
 import prodConfig from './config.prod'
 
 interface ClientConfig {
-    port: string,
-    tokenKey: string
+  port: string,
+  tokenKey: string
 }
 
-let config: ClientConfig 
+let config: ClientConfig
 
 switch (ENV) {
-    case 'production':
-    case 'prod':
-        config = prodConfig 
-        break
-    case 'development':
-    case 'dev':
-        config = devConfig 
-        break
+  case 'production':
+  case 'prod':
+    config = prodConfig
+    break
+  case 'development':
+  case 'dev':
+    config = devConfig
+    break
+  default:
+    break
 }
 
 export default config

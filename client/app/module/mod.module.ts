@@ -3,23 +3,20 @@ import { CommonModule } from '@angular/common'
 import { HttpModule } from '@angular/http'
 import { RouterModule } from '@angular/router'
 
-/**
- * Import ng2-material
- */
 import { MaterialModule } from '@angular/material'
-import { Ng2MaterialModule } from '../../vendor/ng2-material'
+import { FlexLayoutModule } from '@angular/flex-layout'
+
 
 
 /**
  * Import toplevel component/providers/directives/pipes
  */
-import { ModComponent } from './mod.component'
+import { ModComponent } from './module.component'
 import { FooterComponent } from '../shared/footer/footer.component'
 import { HomeComponent } from './home/home.component'
 
 import { ModuleService, NavigationService, VersionService } from '../shared/index'
-// import { SocketService, AuthGuard } from './app.service'
-import { ROUTES } from './mod.routes'
+import { ROUTES } from './module.routes'
 
 const APP_PROVIDERS = [
   ModuleService,
@@ -37,7 +34,7 @@ const APP_PROVIDERS = [
     HttpModule,
     CommonModule,
     MaterialModule.forRoot(),
-    Ng2MaterialModule.forRoot(),
+    FlexLayoutModule.forRoot(),
     RouterModule.forChild(ROUTES),
   ],
   providers: [

@@ -10,11 +10,13 @@
   },
   "public": "../../dist/client",
   "auth": {
-    "idField": "id",
-    "token": {
-      "issuer": "famn",
-      "secret": "ZJApt91sS3bPV275hfobvCTSJYEgv+1n09A8D4bGlqI9S+lq3oePV1Xwla52ZipAXgaj8X/t17/3Tl6UFi1cOQ=="
+    "secret": "ZJApt91sS3bPV275hfobvCTSJYEgv+1n09A8D4bGlqI9S+lq3oePV1Xwla52ZipAXgaj8X/t17/3Tl6UFi1cOQ==",
+    "cookie": {
+      "name": "famn-jwt"
     },
-    "local": {}
+    "jwt": {
+      "audience": "https://yourdomain.com",
+      "issuer": "famn"
+    }
   }
 }

@@ -52,7 +52,6 @@ export default webpackMerge(commonConfig({ env: ENV }), {
    */
   entry: {
     'polyfills': ['./client/polyfills.ts'].concat(HMR ? ['webpack-hot-middleware/client'] : []),
-    'vendor': ['./client/vendor.ts'].concat(HMR ? ['webpack-hot-middleware/client'] : []),
     'main': ['./client/main.ts'].concat(HMR ? ['webpack-hot-middleware/client'] : []),
   },
 

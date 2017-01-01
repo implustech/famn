@@ -62,7 +62,7 @@ docker-compose -f ./docker/docker-compose.prod.yml up --build -d
 
 - ( ) CLI for project initialization
 - ( ) user authorization
-- ( ) robust material design data-table
+- (*) robust material design data-table (ag-grid)
 - ( ) charts
 - ( ) using npm package of ng2-material instead of local build
 - ( ) unit test

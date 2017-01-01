@@ -6,6 +6,7 @@ services:
       dockerfile: ./docker/dev.dockerfile
     environment:
       NODE_ENV: development
+      NODE_CONFIG_DIR: ./app/config
     ports:
       - "3030:3030"
     volumes:

@@ -4,13 +4,13 @@ import { Component, ViewEncapsulation  } from '@angular/core'
 @Component({
   selector: 'famn-app',
   templateUrl: 'app.component.html',
-  // styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   // constructor(public appStore: AppStore) {
   private _isDev: boolean = ENV === 'development' ? true : false
   constructor() {
-    console.log('welcome to im-admin-seed')
+    console.log('welcome to FAMN')
   }
 }

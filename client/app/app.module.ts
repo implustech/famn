@@ -21,7 +21,8 @@ import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor'
  * Import @angular/material, ng2-material
  */
 import { MaterialModule } from '@angular/material'
-import { Ng2MaterialModule } from '../vendor/ng2-material'
+// import { Ng2MaterialModule } from '../vendor/ng2-material'
+import { Ng2MaterialModule } from 'ng2-material'
 
 /**
  * Import toplevel component/providers/directives/pipes
@@ -33,6 +34,9 @@ import { PageNotFoundComponent } from './404/404.component'
 import { SocketService, AuthGuard } from './app.service'
 import { ROUTES } from './app.routes'
 import { ENV_PROVIDERS } from './env'
+
+import { FlexLayoutModule } from '@angular/flex-layout'
+
 
 /**
  * Reducer for @ngrx/store
@@ -59,6 +63,7 @@ let imports = [
   HttpModule,
   CommonModule,
   MaterialModule.forRoot(),
+  FlexLayoutModule.forRoot(),
   Ng2MaterialModule.forRoot(),
   RouterModule.forRoot(ROUTES, {
     useHash: true

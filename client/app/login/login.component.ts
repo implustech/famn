@@ -10,25 +10,26 @@ import { LoginService } from './login.service'
 })
 
 export class LoginComponent {
-  constructor(private router: Router, private loginService: LoginService) {}
-  user: any = {}
+  private user: any = {}
+  private showLogin: boolean = false
 
-  // ngOnInit() {
+  constructor(private _router: Router, private _loginService: LoginService) {}
+
   ngOnInit() {
-    this.loginService.loginToken()
+    this._loginService.loginToken()
       .then(res => {
-        this.router.navigate(['/module'])
+        this._router.navigate(['/module'])
       })
       .catch(err => {
         // No token in localStorage, should go local authentication way
+        this.showLogin = true
       })
-
   }
 
   onSubmit() {
-    this.loginService.loginLocal(this.user)
+    this._loginService.loginLocal(this.user)
       .then(res => {
-        this.router.navigate(['/module'])
+        this._router.navigate(['/module'])
       })
       .catch(err => {
         console.log(err)

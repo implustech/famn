@@ -1,13 +1,15 @@
-md-content.signup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 50px;
+.signup {
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  // padding: 50px;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 
   md-card {
-    width: 500px;
     padding: 0;
   }
 

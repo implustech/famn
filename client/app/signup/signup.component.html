@@ -1,25 +1,22 @@
-<md-content class="signup" layout="row" layout-wrap layout-align="center start">
-  <md-card class="md-elevation-z9">
-    <md-toolbar color="primary">Implus Admin Seed</md-toolbar>
+<div class="signup" fxLayout="row" fxLayoutAlign="center center">
+  <md-card fxFlex="500px" class="md-elevation-z6">
+    <md-toolbar color="primary">FAMN</md-toolbar>
     <md-card-content>
       <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
         <p>
-          <md-input style="width: 100%" placeholder="Fullname" [(ngModel)]="userModel.fullname" name="fullname"></md-input>
+          <md-input style="width: 100%" placeholder="Fullname" type="text" [(ngModel)]="userModel.fullname" name="fullname"></md-input>
         </p>
         <p>
-          <md-input style="width: 100%" placeholder="Email" [(ngModel)]="userModel.email" name="email"></md-input>
+          <md-input style="width: 100%" placeholder="Email" type="email" [(ngModel)]="userModel.email" name="email"></md-input>
         </p>
         <p>
-          <md-input style="width: 100%" placeholder="Password" [(ngModel)]="userModel.password" name="password"></md-input>
+          <md-input style="width: 100%" placeholder="Password" type="password" [(ngModel)]="userModel.password" name="password"></md-input>
         </p>
-
-        <div layout="row" layout-align="end start">
+        <div fxLayout="row" fxLayoutAlign="end start">
           <button type="submit" md-raised-button color="primary" [disabled]="!signupForm.form.valid">Sign up</button>
-        </div>
-        <div layout="row" layout-align="end start">
-          <button  md-button color="primary" [routerLink]="['/login']">Back</button>
+          <button md-button type="button" color="primary" [routerLink]="['/login']">Back</button>
         </div>
       </form>
     </md-card-content>
   </md-card>
-</md-content>
+</div>

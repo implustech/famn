@@ -1,41 +1,37 @@
 import * as globalHooks from '../../../hooks'
 const hooks = require('feathers-hooks')
-const auth = require('feathers-authentication').hooks
+const auth = require('feathers-authentication')
+const local = require('feathers-authentication-local')
 
+
+const myCustomQueryWithCurrentUser = function(options = {}) {
+  return function(hook) {
+    hook.params.query.userId = hook.params.user._id
+    return Promise.resolve(hook)
+  }
+}
 
 const before = {
   all: [],
   find: [
-    auth.verifyToken(),
-    auth.populateUser(),
-    auth.restrictToAuthenticated()
+    auth.hooks.authenticate('jwt')
   ],
   get: [
-    auth.verifyToken(),
-    auth.populateUser(),
-    auth.restrictToAuthenticated(),
-    auth.restrictToOwner({ ownerField: 'id' })
+    auth.hooks.authenticate('jwt')
   ],
   create: [
-    auth.hashPassword()
+    local.hooks.hashPassword()
   ],
   update: [
-    auth.verifyToken(),
-    auth.populateUser(),
-    auth.restrictToAuthenticated(),
-    auth.restrictToOwner({ ownerField: 'id' })
+    auth.hooks.authenticate('jwt'),
+    local.hooks.hashPassword()
   ],
   patch: [
-    auth.verifyToken(),
-    auth.populateUser(),
-    auth.restrictToAuthenticated(),
-    auth.restrictToOwner({ ownerField: 'id' })
+    auth.hooks.authenticate('jwt'),
+    local.hooks.hashPassword()
   ],
   remove: [
-    auth.verifyToken(),
-    auth.populateUser(),
-    auth.restrictToAuthenticated(),
-    auth.restrictToOwner({ ownerField: 'id' })
+    auth.hooks.authenticate('jwt'),
   ]
 }
 

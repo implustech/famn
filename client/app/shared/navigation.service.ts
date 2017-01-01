@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core'
-import {IComponentMeta} from './components.service'
+import { Injectable } from '@angular/core'
+import { ModuleMeta } from './module.service'
 
 export interface INavigationLink {
   /**
@@ -18,7 +18,7 @@ export class NavigationService {
   public nextLink: INavigationLink = null
   public prevLink: INavigationLink = null
 
-  componentLink(comp: IComponentMeta): INavigationLink {
-    return {brief: comp.name, routeLink: '/components/' + comp.id}
+  moduleLink(mod: ModuleMeta): INavigationLink {
+    return { brief: mod.name, routeLink: '/module/' + mod.id }
   }
 }
