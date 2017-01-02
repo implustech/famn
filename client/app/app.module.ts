@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router'
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr'
 
 import './app.global.scss'
-import './shared/footer/footer.global.scss'
 
 /**
  * Import ngrx
@@ -17,12 +16,8 @@ import { Store, StoreModule, ActionReducer, combineReducers } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor'
 
-/**
- * Import @angular/material, ng2-material
- */
 import { MaterialModule } from '@angular/material'
-// import { Ng2MaterialModule } from '../vendor/ng2-material'
-import { Ng2MaterialModule } from 'ng2-material'
+import { FlexLayoutModule } from '@angular/flex-layout'
 
 /**
  * Import toplevel component/providers/directives/pipes
@@ -35,7 +30,6 @@ import { SocketService, AuthGuard } from './app.service'
 import { ROUTES } from './app.routes'
 import { ENV_PROVIDERS } from './env'
 
-import { FlexLayoutModule } from '@angular/flex-layout'
 
 
 /**
@@ -64,7 +58,6 @@ let imports = [
   CommonModule,
   MaterialModule.forRoot(),
   FlexLayoutModule.forRoot(),
-  Ng2MaterialModule.forRoot(),
   RouterModule.forRoot(ROUTES, {
     useHash: true
   }),
@@ -77,7 +70,7 @@ let imports = [
 if (module.hot) imports.push(...[
   StoreDevtoolsModule.instrumentStore({
     monitor: useLogMonitor({
-      visible: true,
+      visible: false,
       position: 'right'
     })
   }),

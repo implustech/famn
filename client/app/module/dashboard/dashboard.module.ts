@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router'
  * Import @angular/material, ng2-material
  */
 import { MaterialModule } from '@angular/material'
-// import { Ng2MaterialModule } from '../../../vendor/ng2-material'
-import { Ng2MaterialModule } from 'ng2-material'
 
 import { DashboardComponent } from './dashboard.component'
 import { TodoComponent } from '../../widgets/todo'
@@ -25,10 +23,9 @@ import { ROUTES } from './dashboard.routes'
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
-    Ng2MaterialModule.forRoot(),
     RouterModule.forChild(ROUTES),
   ]
 })
-export default class DashboardModule {
+export class DashboardModule {
   constructor() { }
 }

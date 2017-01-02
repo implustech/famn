@@ -1,7 +1,6 @@
 import { ModComponent } from './module.component'
 import { HomeComponent } from './home/home.component'
 
-
 export const ROUTES = [
   {
     path: '',
@@ -13,13 +12,11 @@ export const ROUTES = [
       },
       {
         path: 'dashboard',
-        loadChildren: () => System.import('./dashboard')
-          .then((comp: any) => comp.default)
+        loadChildren: './dashboard/index#DashboardModule'
       },
       {
         path: 'message',
-        loadChildren: () => System.import('./message')
-          .then((comp: any) => comp.default)
+        loadChildren: './message/index#MessageModule'
       }
     ]
   },

@@ -1,19 +1,23 @@
 <md-card>
-<md-toolbar color="accent">Messages</md-toolbar>
-<md-data-table layout-fill [selectable]="true">
-  <thead>
-  <tr md-data-table-header-selectable-row>
-    <th class="md-text-cell">Id</th>
-    <th>Email</th>
-    <th>Message</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let message of messages"  md-data-table-selectable-row >
-    <td class="md-text-cell">{{ message._id }}</td>
-    <td>{{ message.email }}</td>
-    <td>{{ message.message }}</td>
-  </tr>
-  </tbody>
-</md-data-table>
+  <!--<md-toolbar color="accent">Messages</md-toolbar>-->
+  <md-card-title> Messages </md-card-title>
+  <md-card-content>
+  <ag-grid-ng2 #messageGrid style="width: 100%; height: 500px;" class="ag-material"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+
+      enableColResize
+      enableSorting
+      enableFilter
+
+      rowHeight="46"
+      rowSelection="multiple"
+
+
+      paginationPageSize="5"
+      rowModelType="pagination"
+
+      (gridReady)="onGridReady()">
+  </ag-grid-ng2>
+  </md-card-content>
 </md-card>

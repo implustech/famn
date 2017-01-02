@@ -23,14 +23,17 @@ export class MessageService {
     })
   }
 
-
-  findOffers() {
+  findMessages() {
     this._messageService.find().then(res => {
       this._observable.next({
         type: 'find',
         messages: res.data
       })
     })
+  }
+
+  off() {
+    this._messageService.off('created')
   }
 
 }

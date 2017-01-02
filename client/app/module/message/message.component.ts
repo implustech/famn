@@ -1,26 +1,35 @@
-import { Component } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { MessageService } from './message.service'
 
 import { Store } from '@ngrx/store'
+import { Observable } from 'rxjs/Observable'
 
 
+import { GridOptions } from 'ag-grid/main'
 
 
 @Component({
   selector: 'message-module',
   templateUrl: 'message.component.html',
+  styleUrls: ['./message.component.scss'],
   providers: [MessageService]
 })
 
-export class MessageComponent {
+export class MessageComponent implements OnInit, OnDestroy {
   messages = []
+  private message$: Observable<any>
+  private messageSubscription: any
+  private gridOptions: GridOptions
+  private columnDefs: any[]
 
   constructor(private _store: Store<any>,
     private _messageService: MessageService) {
-    this._store.select('message')
-      .subscribe((messages: any) => {
-        // this.messages.push(...messages)
+
+    this.message$ = this._store.select('message')
+
+    this.messageSubscription = this.message$.subscribe((messages: any[]) => {
         this.messages = messages
+        this.createDataSource()
       })
 
     this._messageService.resource$.subscribe(res => {
@@ -32,18 +41,71 @@ export class MessageComponent {
           })
           break
         case 'created':
-          this._store.dispatch({
-            type: 'MESSAGE_UPDATE',
-            payload: res.messages
-          })
+          // this._store.dispatch({
+          //   type: 'MESSAGE_UPDATE',
+          //   payload: res.messages
+          // })
+          this._messageService.findMessages()
           break
         default:
           break
       }
     })
+
+    // ag-grid initialization
+    this.gridOptions = <GridOptions>{}
+    this.columnDefs = this.createColumnDefs()
   }
 
+
   ngOnInit() {
-    this._messageService.findOffers()
+  }
+
+  ngOnDestroy() {
+    this.messageSubscription.unsubscribe()
+  }
+
+  private onGridReady() {
+    this.gridOptions.api.sizeColumnsToFit()
+    this._messageService.findMessages()
+  }
+
+  private createColumnDefs() {
+    return [
+      {
+        headerName: 'Email',
+        field: 'email'
+      },
+      {
+        headerName: 'Message',
+        field: 'message'
+      },
+      {
+        headerName: 'Created Time',
+        field: 'createdAt'
+      },
+      {
+        headerName: 'Updated Time',
+        field: 'updatedAt'
+      }
+    ]
+  }
+
+
+  private createDataSource() {
+    if (!this.gridOptions) return
+    let dataSource = {
+      rowCount: -1,
+      getRows: params => {
+        let rowsThisPage = this.messages.slice(params.startRow, params.endRow)
+        let lastRow = -1
+        if (this.messages.length <= params.endRow) {
+          lastRow = this.messages.length
+        }
+        params.successCallback(rowsThisPage, this.messages.length)
+      }
+    }
+
+    this.gridOptions.api.setDatasource(dataSource)
   }
 }

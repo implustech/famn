@@ -9,6 +9,7 @@ const messageSchema = new mongoose.Schema({
     type: String,
     default: ''
   }
-})
+},
+{ timestamps: {} })
 
 export default mongoose.model('Message', messageSchema)
