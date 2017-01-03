@@ -63,6 +63,7 @@ export class MessageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.messageSubscription.unsubscribe()
+    this._messageService.off()
   }
 
   private onGridReady() {

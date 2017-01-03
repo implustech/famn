@@ -33,7 +33,7 @@ export class MessageService {
   }
 
   off() {
-    this._messageService.off('created')
+    this._messageService.removeAllListeners('created')
   }
 
 }
