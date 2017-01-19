@@ -4,6 +4,9 @@ const before = {
   create: [
     auth.hooks.authenticate(['jwt', 'local'])
   ],
+  remove: [
+    auth.hooks.authenticate('jwt')
+  ]
 }
 
 export default {

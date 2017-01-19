@@ -7,10 +7,13 @@ import {
   Input,
   ChangeDetectorRef,
   Renderer,
-  ElementRef
+  ElementRef,
 } from '@angular/core'
+import { Router } from '@angular/router'
+
 import { MdSidenav } from '@angular/material'
 import { ModuleMeta, ModuleService } from '../shared/module.service'
+import { SocketService } from '../app.service'
 import { Http, Response } from '@angular/http'
 import { NavigationService } from '../shared/navigation.service'
 import { Subscription } from 'rxjs/Subscription'
@@ -32,6 +35,7 @@ export class ModComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private _isDev: boolean = ENV === 'development' ? true : false
   private _subscription = null
+  private user = undefined
 
 
   constructor(private http: Http,
@@ -40,24 +44,12 @@ export class ModComponent implements OnInit, OnDestroy, AfterViewInit {
     // private media: Media,
     element: ElementRef,
     renderer: Renderer,
-    private _modules: ModuleService) {
+    private _router: Router,
+    private _modules: ModuleService,
+    private _socketService: SocketService) {
     // Remove loading class to unset default styles
     renderer.setElementClass(element.nativeElement, 'loading', false)
   }
-
-
-  // get pushed(): boolean {
-  //   return this.menu && this.menu.mode === 'side'
-  // }
-
-  // get over(): boolean {
-  //   return this.menu && this.menu.mode === 'over' && this.menu.opened
-  // }
-
-
-  // getScrollTop(scroller: MdPeekaboo): string {
-  //   return scroller.top + 'px'
-  // }
 
   ngOnInit() {
     // this.http.get('version.json').subscribe((res: Response) => {
@@ -72,18 +64,20 @@ export class ModComponent implements OnInit, OnDestroy, AfterViewInit {
       document.title = title
       this.navigation.currentTitle = title
     })
+
+    this.user = this._socketService.getUser()
   }
 
   ngAfterViewInit(): any {
-    // let query = Media.getQuery(ModComponent.SIDE_MENU_BREAKPOINT)
-    // this._subscription = this.media.listen(query).onMatched.subscribe((mql: MediaQueryList) => {
-    //   this.menu.mode = mql.matches ? 'side' : 'over'
-    //   this.menu.toggle(mql.matches).catch(() => undefined)
-    //   this.changeDetectorRef.detectChanges()
-    // })
   }
 
   ngOnDestroy(): any {
     // this._subscription.unsubscribe()
+  }
+
+  logout(): void {
+    this._socketService.logout().then(res => {
+      this._router.navigate(['/login'])
+    })
   }
 }

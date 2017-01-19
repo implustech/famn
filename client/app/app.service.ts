@@ -39,6 +39,8 @@ export class SocketService {
   }
 
   logout() {
+    // feathers-authentication-client will bind logout method to app
+    // app.logout = app.passport.logout.bind(app.passport);
     return this.app.logout()
   }
 
