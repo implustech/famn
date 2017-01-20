@@ -1,11 +1,11 @@
 # famn
 
-famn is an Angular2 application framework with both client side and server side integrated. 
+Famn is an Angular2 application framework with both client side and server side integrated. 
 I have been exploring for such an Angular2 [MEAN](http://mean.io) for a while but w/o an ideal solution, so I write it.
 
-famn stands for [Feathers](http://feathersjs.com/), [Angular2](https://angular.io), [MongoDB](https://www.mongodb.com/), and [Node.js](https://nodejs.org/en/)
+Famn stands for [Feathers](http://feathersjs.com/), [Angular2](https://angular.io), [MongoDB](https://www.mongodb.com/), and [Node.js](https://nodejs.org/en/)
 
-famn borrowed much from [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter), [@angular/material](https://github.com/angular/material2), [ng2-material](https://github.com/justindujardin/ng2-material)
+Famn borrowed much from [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter), [@angular/material](https://github.com/angular/material2), [ng2-material](https://github.com/justindujardin/ng2-material)
 
 *IMPORTANT* This project has no commercial level of support and it's suggested to use in development for quick prototype. PR is welcome to make it go further.
 
@@ -17,7 +17,7 @@ famn borrowed much from [angular2-webpack-starter](https://github.com/AngularCla
 - Feathers is to provide realtime service
 - All websocket based communications
 - MongoDB and mongoose model
-- Ngrx for state management
+- Ngrx/store for state management
 - HMR in development
 - Material design
 - Docker based
@@ -28,10 +28,10 @@ famn borrowed much from [angular2-webpack-starter](https://github.com/AngularCla
 
 ```sh
 # prepare environment
-npm i -g nodemon ts-node typescript@2.0
+npm i nodemon ts-node typescript@2.0
 
 # or use yarn
-yarn add global nodemon ts-node typescript@2.0
+yarn add nodemon ts-node typescript@2.0
 
 # build client code
 yarn run build:client:dev
@@ -64,5 +64,4 @@ docker-compose -f ./docker/docker-compose.prod.yml up --build -d
 - ( ) user authorization
 - (*) robust material design data-table (ag-grid)
 - ( ) charts
-- ( ) using npm package of ng2-material instead of local build
 - ( ) unit test
