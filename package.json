@@ -1,6 +1,6 @@
 {
   "name": "famn",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "famn - angular2 application seed",
   "scripts": {
     "rimraf": "rimraf",
@@ -9,7 +9,7 @@
     "webpack-dev-server": "webpack-dev-server",
     "clean": "yarn cache clean && yarn run rimraf -- node_modules dist",
     "clean:dist": "yarn run rimraf -- dist",
-    "start:hmr": "NODE_ENV=development HMR=true ts-node server.ts",
+    "start:hmr": "NODE_ENV=development HMR=true nodemon --watch 'app/**/*.ts'  --exec 'ts-node' server.ts",
     "start:prod": "NODE_ENV=production node ./dist/server.bundle.js",
     "build": "yarn run build:client:dev",
     "prebuild:client:dev": "yarn run clean:dist",
@@ -43,6 +43,7 @@
     "html-webpack-plugin": "^2.22.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.8.0",
+    "nodemon": "^1.11.0",
     "postcss-reporter": "1.3.3",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.2",

@@ -23,15 +23,11 @@ export const ROUTES = [
   {
     path: 'module',
     loadChildren: () => ModModule,
-    // loadChildren: () => System.import('./module')
-    //   .then((comp: any) => comp.default)
     canActivate: [AuthGuard]
   },
   {
     path: '404-page',
     component: PageNotFoundComponent,
-    // loadChildren: () => System.import('./+404')
-    //   .then((comp: any) => comp.default)
   },
   { path: '**', redirectTo: '/404-page' }
 ]

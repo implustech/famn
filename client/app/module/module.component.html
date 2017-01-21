@@ -25,7 +25,8 @@
       <span style="flex: 1 1 auto;"></span>
       <button md-button [mdMenuTriggerFor]="loginAccount">{{user.email}}</button>
       <md-menu #loginAccount="mdMenu">
-        <button md-menu-item>Setting</button>
+        <button md-menu-item routerLink="/module/setting/profile">Profile</button>
+        <button md-menu-item routerLink="/module/setting/password">Password</button>
         <button md-menu-item (click)="logout()">Logout</button>
       </md-menu>
     </md-toolbar>

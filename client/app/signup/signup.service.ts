@@ -7,18 +7,18 @@ import { SocketService } from '../app.service'
 export class SignupService {
   // public item$: Observable<any>
   // private _observable
-  private _socket
+  private userService
 
-  constructor(private _socketService: SocketService) {
+  constructor(private userServiceService: SocketService) {
     // get featheres service
-    this._socket = _socketService.getService('users')
+    this.userService = userServiceService.getService('users')
 
     // this.item$ is a public observable for components to subscribe
     // this.item$ = new Observable(observable => this._observable = observable)
   }
 
   signup(user: any) {
-    return this._socket.create({
+    return this.userService.create({
       email: user.email,
       password: user.password
     })

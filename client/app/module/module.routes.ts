@@ -11,6 +11,10 @@ export const ROUTES = [
         component: HomeComponent
       },
       {
+        path: 'setting',
+        loadChildren: './setting/setting.module#SettingModule'
+      },
+      {
         path: 'dashboard',
         loadChildren: './dashboard/index#DashboardModule'
       },
