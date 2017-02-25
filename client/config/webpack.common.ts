@@ -3,14 +3,15 @@
  */
 
 const webpack = require('webpack')
-import helpers from './helpers'
-import headTags from './html-head-config'
+import { helpers } from './helpers'
+import { headTags } from './html-head-config'
 
 /*
  * Webpack Plugins
  */
 // problem with copy-webpack-plugin
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const AssetsPlugin = require('assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
@@ -18,8 +19,8 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 const HtmlElementsPlugin = require('./html-elements-plugin')
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin')
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin')
-
-
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const ngcWebpack = require('ngc-webpack')
 
 
 /*
@@ -39,16 +40,9 @@ const METADATA = {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-export default (options) => {
+export function webpackCommonConfig(options) {
   let isProd = options.env === 'production'
   return {
-
-    // /*
-    //  * Static metadata for index.html
-    //  *
-    //  * See: (custom attribute)
-    //  */
-    // metadata: METADATA,
 
     /*
      * Cache generated modules and chunks to improve performance for multiple incremental builds.
@@ -66,9 +60,8 @@ export default (options) => {
      * See: http://webpack.github.io/docs/configuration.html#entry
      */
     entry: {
-
       'polyfills': './client/polyfills.ts',
-      'main': './client/main.ts'
+      'main': AOT ? './client/main.aot.ts' : './client/main.ts'
     },
 
     /*
@@ -93,7 +86,7 @@ export default (options) => {
        * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
        */
       extensions: ['.ts', '.js', '.json'],
-      modules: [helpers.root('src'), 'node_modules']
+      modules: [helpers.root('client/app'), helpers.root('node_modules')],
     },
 
     /*
@@ -106,21 +99,45 @@ export default (options) => {
       rules: [
 
         /*
-         * Typescript loader support for .ts and Angular 2 async routes via .async.ts
-         * Replace templateUrl and stylesUrl with require()
+         * Typescript loader support for .ts
+         *
+         * Component Template/Style integration using `angular2-template-loader`
+         * Angular 2 lazy loading (async routes) via `ng-router-loader`
+         *
+         * `ng-router-loader` expects vanilla JavaScript code, not TypeScript code. This is why the
+         * order of the loader matter.
          *
          * See: https://github.com/s-panferov/awesome-typescript-loader
          * See: https://github.com/TheLarkInn/angular2-template-loader
+         * See: https://github.com/shlomiassaf/ng-router-loader
          */
         {
           test: /\.ts$/,
           use: [
-            '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
-            'awesome-typescript-loader',
-            'angular2-template-loader',
-            // 'angular-router-loader' // angular2 module lazy loader
-            'angular-router-loader?loader=system&genDir=compiled/src/app&aot=' + AOT
-
+            {
+              loader: '@angularclass/hmr-loader',
+              options: {
+                pretty: !isProd,
+                prod: isProd
+              }
+            },
+            { // MAKE SURE TO CHAIN VANILLA JS CODE, I.E. TS COMPILATION OUTPUT.
+              loader: 'ng-router-loader',
+              options: {
+                loader: 'async-import',
+                genDir: 'aot',
+                aot: AOT
+              }
+            },
+            {
+              loader: 'awesome-typescript-loader',
+              options: {
+                configFileName: 'tsconfig.webpack.json'
+              }
+            },
+            {
+              loader: 'angular2-template-loader'
+            }
           ],
           exclude: [/\.(spec|e2e)\.ts$/]
         },
@@ -178,13 +195,6 @@ export default (options) => {
           test: /\.(jpg|png|gif)$/,
           use: 'file-loader'
         },
-        /* URL loader for various assets
-          */
-        // {
-        //   test: /\.(jpg|png|gif)$/,
-        //   loader: 'file'
-        // },
-
         {
           test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
           use: 'url?limit=10000&minetype=application/font-woff'
@@ -218,7 +228,11 @@ export default (options) => {
     * See: http://webpack.github.io/docs/configuration.html#plugins
     */
     plugins: [
-
+      new AssetsPlugin({
+        path: helpers.root('dist'),
+        filename: 'webpack-assets.json',
+        prettyPrint: true
+      }),
 
       /*
        * Plugin: ForkCheckerPlugin
@@ -236,9 +250,19 @@ export default (options) => {
        * See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
        */
       new CommonsChunkPlugin({
-        name: ['polyfills']
+        name: ['polyfills'],
+        chunks: ['polyfills']
       }),
-
+      // This enables tree shaking of the vendor modules
+      new CommonsChunkPlugin({
+        name: 'vendor',
+        chunks: ['main'],
+        minChunks: module => /node_modules/.test(module.resource)
+      }),
+      // Specify the correct order the scripts will be injected in
+      new CommonsChunkPlugin({
+        name: ['polyfills', 'vendor'].reverse()
+      }),
 
       /**
        * Plugin: ContextReplacementPlugin
@@ -249,7 +273,7 @@ export default (options) => {
        */
       new ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+        /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
         helpers.root('client') // location of your src
       ),
 
@@ -290,6 +314,18 @@ export default (options) => {
         chunksSortMode: 'dependency',
         metadata: METADATA,
         inject: 'head'
+      }),
+
+
+      /*
+       * Plugin: ScriptExtHtmlWebpackPlugin
+       * Description: Enhances html-webpack-plugin functionality
+       * with different deployment options for your scripts including:
+       *
+       * See: https://github.com/numical/script-ext-html-webpack-plugin
+       */
+      new ScriptExtHtmlWebpackPlugin({
+        defaultAttribute: 'defer'
       }),
 
 
@@ -349,6 +385,12 @@ export default (options) => {
         /facade(\\|\/)math/,
         helpers.root('node_modules/@angular/core/src/facade/math.js')
       ),
+
+      new ngcWebpack.NgcWebpackPlugin({
+        disabled: !AOT,
+        tsConfig: helpers.root('tsconfig.webpack.json'),
+        resourceOverride: helpers.root('./client/config/resource-override.ts')
+      })
 
     ],
 

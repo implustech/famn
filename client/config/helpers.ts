@@ -41,7 +41,7 @@ function getHost() {
   return location.host
 }
 
-export default {
+export const helpers = {
   hasProcessFlag,
   hasNpmFlag,
   isWebpackDevServer,

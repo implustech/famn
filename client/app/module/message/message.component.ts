@@ -11,16 +11,15 @@ import { GridOptions } from 'ag-grid/main'
 @Component({
   selector: 'message-module',
   templateUrl: 'message.component.html',
-  styleUrls: ['./message.component.scss'],
   providers: [MessageService]
 })
 
 export class MessageComponent implements OnInit, OnDestroy {
-  messages = []
   private message$: Observable<any>
   private messageSubscription: any
-  private gridOptions: GridOptions
-  private columnDefs: any[]
+  public gridOptions: GridOptions
+  public columnDefs: any[]
+  public messages = []
 
   constructor(private _store: Store<any>,
     private _messageService: MessageService) {
@@ -66,12 +65,12 @@ export class MessageComponent implements OnInit, OnDestroy {
     this._messageService.off()
   }
 
-  private onGridReady() {
+  onGridReady() {
     this.gridOptions.api.sizeColumnsToFit()
     this._messageService.findMessages()
   }
 
-  private createColumnDefs() {
+  createColumnDefs() {
     return [
       {
         headerName: 'Email',
@@ -93,7 +92,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
 
-  private createDataSource() {
+  createDataSource() {
     if (!this.gridOptions) return
     let dataSource = {
       rowCount: -1,

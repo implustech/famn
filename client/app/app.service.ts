@@ -6,8 +6,7 @@ const authentication = require('feathers-authentication-client')
 
 import { Injectable } from '@angular/core'
 import { Router, CanActivate } from '@angular/router'
-import helpers from '../config/helpers'
-import config from '../config/config'
+import { helpers } from '../config/helpers'
 
 @Injectable()
 /**

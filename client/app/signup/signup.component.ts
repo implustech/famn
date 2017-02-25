@@ -14,7 +14,7 @@ import { SignupService } from './signup.service'
 })
 
 export class SignupComponent {
-  private userModel = {}
+  public userModel = {}
 
   constructor(private router: Router, private signupService: SignupService) {}
   onSubmit() {

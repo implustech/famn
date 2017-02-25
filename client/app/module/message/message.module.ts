@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router'
 
 import { MaterialModule } from '@angular/material'
 
-import {AgGridModule} from 'ag-grid-ng2/main'
+import {AgGridModule} from 'ag-grid-angular/main'
 import 'ag-grid/dist/styles/ag-grid.css'
 import 'ag-grid/dist/styles/theme-material.css'
 

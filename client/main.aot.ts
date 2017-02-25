@@ -7,7 +7,7 @@ import { decorateModuleRef } from './app/env'
  * App Module
  * our top level module that holds all of our components
  */
-import { AppModuleNgFactory } from '../compiled/src/app/app.module.ngfactory'
+import { AppModuleNgFactory } from '../aot/src/app/app.module.ngfactory'
 
 
 /*
@@ -21,7 +21,7 @@ export function main(): Promise<any> {
 }
 
 export function bootstrapDomReady() {
-  document.addEventListener('DOMContentLoaded', main);
+  document.addEventListener('DOMContentLoaded', main)
 }
 
-bootstrapDomReady();
+bootstrapDomReady()

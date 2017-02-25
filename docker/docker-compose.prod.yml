@@ -10,11 +10,11 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ~/docker/imadminseed/log:/var/log/imadminseed
+      - ~/docker/famn/log:/var/log/famn
     links:
       - mongo
   mongo:
-    image: mongo:3.2
+    image: mongo:3.4
     ports:
       - "27017:27017"  # for host connect
     volumes:

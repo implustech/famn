@@ -9,10 +9,10 @@ import { MdSnackBar } from '@angular/material'
 })
 export class PasswordComponent implements OnInit {
   private usersService
-  private user
-  private password
-  private confirmPassword
-  private isPasswordDiff = false
+  public user
+  public password
+  public confirmPassword
+  public isPasswordDiff = false
 
   constructor(
     private socketService: SocketService,

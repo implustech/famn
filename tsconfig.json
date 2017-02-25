@@ -23,12 +23,13 @@
     "dom",
     "es6"
   ],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
   "types": [
     "core-js",
     "jasmine",
     "node",
-    "protractor",
-    "selenium-webdriver",
     "source-map",
     "uglify-js",
     "webpack",
@@ -40,8 +41,6 @@
     "dist"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "useCache": true,
-    "resolveGlobs": true,
     "forkChecker": true,
     "useWebpackText": true
   },

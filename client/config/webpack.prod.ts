@@ -2,19 +2,21 @@
  * @author: hjl
  */
 
-const webpack = require('webpack')
-import helpers from './helpers'
+import { helpers } from './helpers'
 const webpackMerge = require('webpack-merge') // used to merge webpack configs
-import commonConfig from './webpack.common' // the settings that are common to prod and dev
+import { webpackCommonConfig } from './webpack.common' // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin')
-const IgnorePlugin = require('webpack/lib/IgnorePlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const IgnorePlugin = require('webpack/lib/IgnorePlugin')
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin')
-
-const WebpackMd5Hash = require('webpack-md5-hash')
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin')
+const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin')
+const ProvidePlugin = require('webpack/lib/ProvidePlugin')
+const OptimizeJsPlugin = require('optimize-js-plugin')
 
 /**
  * Webpack Constants
@@ -22,7 +24,8 @@ const WebpackMd5Hash = require('webpack-md5-hash')
 const ENV = process.env.ENV = process.env.NODE_ENV = 'production'
 const HOST = process.env.HOST || 'localhost'
 const PORT = process.env.PORT || 8080
-const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
+// const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
+const METADATA = webpackMerge({}, {
   host: HOST,
   port: PORT,
   ENV: ENV,
@@ -34,14 +37,8 @@ const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-export default webpackMerge(commonConfig({ env: ENV }), {
 
-  /**
-   * Switch loaders to debug mode.
-   *
-   * See: http://webpack.github.io/docs/configuration.html#debug
-   */
-  debug: false,
+export default webpackMerge(webpackCommonConfig({ env: ENV }), {
 
   /**
    * Developer tool to enhance debugging
@@ -89,13 +86,20 @@ export default webpackMerge(commonConfig({ env: ENV }), {
   },
 
   plugins: [
+
     /**
-     * Plugin: WebpackMd5Hash
-     * Description: Plugin to replace a standard webpack chunkhash with md5.
+     * Webpack plugin to optimize a JavaScript file for faster initial load
+     * by wrapping eagerly-invoked functions.
      *
-     * See: https://www.npmjs.com/package/webpack-md5-hash
+     * See: https://github.com/vigneshshanmugam/optimize-js-plugin
      */
-    new WebpackMd5Hash(),
+
+    new OptimizeJsPlugin({
+      sourceMap: false
+    }),
+
+    new ExtractTextPlugin('[name].[contenthash].css'),
+
 
     /**
      * Plugin: DefinePlugin
@@ -127,25 +131,26 @@ export default webpackMerge(commonConfig({ env: ENV }), {
      */
     // NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
     new UglifyJsPlugin({
-      // beautify: true, //debug
-      // mangle: false, //debug
-      // dead_code: false, //debug
-      // unused: false, //debug
-      // deadCode: false, //debug
-      // compress: {
-      //   screw_ie8: true,
-      //   keep_fnames: true,
-      //   drop_debugger: false,
-      //   dead_code: false,
-      //   unused: false
-      // }, // debug
-      // comments: true, //debug
-
-
-      beautify: false, // prod
-      mangle: { screw_ie8: true, keep_fnames: true }, // prod
-      compress: { screw_ie8: true }, // prod
-      comments: false // prod
+      beautify: false, //prod
+      output: {
+        comments: false
+      }, //prod
+      mangle: {
+        screw_ie8: true
+      }, //prod
+      compress: {
+        screw_ie8: true,
+        warnings: false,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+        negate_iife: false // we need this for lazy v8
+      },
     }),
 
 
@@ -157,41 +162,48 @@ export default webpackMerge(commonConfig({ env: ENV }), {
      * See: http://webpack.github.io/docs/list-of-plugins.html#normalmodulereplacementplugin
      */
 
-    // new NormalModuleReplacementPlugin(
-    //   /angular2-hmr/,
-    //   helpers.root('config/modules/angular2-hmr-prod.js')
-    // ),
+    new NormalModuleReplacementPlugin(
+      /angular2-hmr/,
+      helpers.root('client/config/empty.ts')
+    ),
+    new NormalModuleReplacementPlugin(
+      /zone\.js(\\|\/)dist(\\|\/)long-stack-trace-zone/,
+      helpers.root('client/config/empty.ts')
+    ),
+
+
+    /**
+     * Plugin LoaderOptionsPlugin (experimental)
+     *
+     * See: https://gist.github.com/sokra/27b24881210b56bbaff7
+     */
+    new LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+      options: {
+
+        /**
+         * Html loader advanced options
+         *
+         * See: https://github.com/webpack/html-loader#advanced-options
+         */
+        // TODO: Need to workaround Angular 2's html syntax => #id [bind] (event) *ngFor
+        htmlLoader: {
+          minimize: true,
+          removeAttributeQuotes: false,
+          caseSensitive: true,
+          customAttrSurround: [
+            [/#/, /(?:)/],
+            [/\*/, /(?:)/],
+            [/\[?\(?/, /(?:)/]
+          ],
+          customAttrAssign: [/\)?\]?=/]
+        },
+
+      }
+    }),
   ],
 
-  /**
-   * Static analysis linter for TypeScript advanced options configuration
-   * Description: An extensible linter for the TypeScript language.
-   *
-   * See: https://github.com/wbuchwalter/tslint-loader
-   */
-  tslint: {
-    emitErrors: true,
-    failOnHint: true,
-    resourcePath: 'client'
-  },
-
-  /**
-   * Html loader advanced options
-   *
-   * See: https://github.com/webpack/html-loader#advanced-options
-   */
-  // TODO: Need to workaround Angular 2's html syntax => #id [bind] (event) *ngFor
-  htmlLoader: {
-    minimize: true,
-    removeAttributeQuotes: false,
-    caseSensitive: true,
-    customAttrSurround: [
-      [/#/, /(?:)/],
-      [/\*/, /(?:)/],
-      [/\[?\(?/, /(?:)/]
-    ],
-    customAttrAssign: [/\)?\]?=/]
-  },
   /*
    * Include polyfills or mocks for various node stuff
    * Description: Node configuration
@@ -199,7 +211,7 @@ export default webpackMerge(commonConfig({ env: ENV }), {
    * See: https://webpack.github.io/docs/configuration.html#node
    */
   node: {
-    global: 'window',
+    global: true,
     crypto: 'empty',
     process: false,
     module: false,

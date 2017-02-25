@@ -1,5 +1,5 @@
-import devConfig from './config.dev'
-import prodConfig from './config.prod'
+import { devConfig } from './config.dev'
+import { prodConfig } from './config.prod'
 
 interface ClientConfig {
   port: string,
@@ -21,4 +21,4 @@ switch (ENV) {
     break
 }
 
-export default config
+export { config }

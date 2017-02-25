@@ -9,7 +9,7 @@ import { Component, ViewEncapsulation  } from '@angular/core'
 })
 export class AppComponent {
   // constructor(public appStore: AppStore) {
-  private _isDev: boolean = ENV === 'development' ? true : false
+  public _isDev: boolean = ENV === 'development' ? true : false
   constructor() {
     console.log('welcome to FAMN')
   }

@@ -1,10 +1,13 @@
 import { LoginComponent } from './login/login.component'
 import { SignupComponent } from './signup/signup.component'
 import { PageNotFoundComponent } from './404/404.component'
-import ModModule from './module'
+import { ModModule } from './module'
 import { AuthGuard } from './app.service'
 
 
+function loadModModule() {
+  return ModModule
+}
 
 export const ROUTES = [
   {
@@ -22,7 +25,7 @@ export const ROUTES = [
   },
   {
     path: 'module',
-    loadChildren: () => ModModule,
+    loadChildren: loadModModule,
     canActivate: [AuthGuard]
   },
   {

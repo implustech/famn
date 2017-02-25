@@ -6,7 +6,9 @@
          <md-checkbox >{{name}}</md-checkbox>
       </md-list-item>
       <div layout="row">
-        <md-input [(ngModel)]="newName" placeholder="New task"></md-input>
+        <md-input-container>
+        <input mdInput [(ngModel)]="newName" placeholder="New task">
+        </md-input-container>
         <button md-raised-button color="primary" (click)="addName()">Add</button>
       </div>
     </md-list>

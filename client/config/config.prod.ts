@@ -1,5 +1,5 @@
-import commonConfig from './config.common'
+import { commonConfig } from './config.common'
 
-export default Object.assign({}, commonConfig, {
-    port: '80'
+export const prodConfig = Object.assign({}, commonConfig, {
+    port: '8080'
 })

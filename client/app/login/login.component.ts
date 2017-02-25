@@ -10,8 +10,8 @@ import { LoginService } from './login.service'
 })
 
 export class LoginComponent {
-  private user: any = {}
-  private showLogin: boolean = false
+  public user: any = {}
+  public showLogin: boolean = false
 
   constructor(private _router: Router, private _loginService: LoginService) {}
 
