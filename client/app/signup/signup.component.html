@@ -4,18 +4,18 @@
     <md-card-content>
       <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
         <p>
-          <md-input-container>
-          <input mdInput style="width: 100%" placeholder="Fullname" type="text" [(ngModel)]="userModel.fullname" name="fullname">
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Fullname" type="text" [(ngModel)]="userModel.fullname" name="fullname">
           </md-input-container>
         </p>
         <p>
-          <md-input-container>
-          <input mdInput style="width: 100%" placeholder="Email" type="email" [(ngModel)]="userModel.email" name="email">
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Email" type="email" [(ngModel)]="userModel.email" name="email">
           </md-input-container>
         </p>
         <p>
-          <md-input-container>
-          <input mdInput style="width: 100%" placeholder="Password" type="password" [(ngModel)]="userModel.password" name="password">
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Password" type="password" [(ngModel)]="userModel.password" name="password">
           </md-input-container>
         </p>
         <div fxLayout="row" fxLayoutAlign="end start">
