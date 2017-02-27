@@ -15,5 +15,6 @@
 
 ### Features
 
-- Update angular2 to 2.4.6
-- Introducing AOT
+- Update angular2 to 2.4.8
+- Introducing Webpack DLL
+- Introducing AOT (Not passed test yet)

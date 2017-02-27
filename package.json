@@ -70,7 +70,7 @@
     "@angular/compiler-cli": "2.4.8",
     "@angularclass/hmr": "1.2.2",
     "@angularclass/hmr-loader": "3.0.2",
-    "@ngrx/store-devtools": "3.2.2",
+    "@ngrx/store-devtools": "3.2.3",
     "@ngrx/store-log-monitor": "3.0.2",
     "@types/body-parser": "^0.0.34",
     "@types/bunyan": "^0.0.35",

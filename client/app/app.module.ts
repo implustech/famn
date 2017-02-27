@@ -62,19 +62,19 @@ let imports = [
     useHash: true
   }),
 
-  StoreLogMonitorModule,
+  // StoreLogMonitorModule,
   StoreModule.provideStore(rootReducer)
 ]
 
 // Enable HMR and ngrx/devtools in hot reload mode
-if (module.hot) imports.push(...[
+if (process.env.NODE_ENV === 'development') imports.push(...[
   StoreDevtoolsModule.instrumentStore({
     monitor: useLogMonitor({
       visible: false,
       position: 'right'
     })
   }),
-  // StoreLogMonitorModule,
+  StoreLogMonitorModule,
 ])
 
 @NgModule({

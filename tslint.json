@@ -47,6 +47,7 @@
       "single",
       "avoid-escape"
     ],
+    "semicolon": [true, "never"],
     "variable-name": [
       true,
       "allow-leading-underscore",

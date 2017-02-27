@@ -58,6 +58,23 @@ curl 'http://localhost:3030/messages/' -H 'Content-Type: application/json' --dat
 docker-compose -f ./docker/docker-compose.prod.yml up --build -d
 ```
 
+### Other commands
+
+#### build
+
+```sh
+# build client for dev
+yarn run build:client:dev
+# build client for prod
+yarn run build:client:prod
+# build client with AOT for prod
+yarn run build:client:aot:prod
+# build server for prod
+yarn run build:server:prod
+```
+
+
+
 ### To do
 
 - ( ) CLI for project initialization

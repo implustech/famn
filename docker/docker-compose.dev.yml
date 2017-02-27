@@ -10,7 +10,7 @@ services:
     ports:
       - "3030:3030"
     volumes:
-      - ..:/famn
+      - ..:/famn/
       - /famn/node_modules
     links:
       - mongo

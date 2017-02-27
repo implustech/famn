@@ -2,9 +2,10 @@
  * @author: hjl
  */
 
-import { helpers } from './helpers'
+const webpack = require('webpack')
 const webpackMerge = require('webpack-merge') // used to merge webpack configs
 const webpackMergeDll = webpackMerge.strategy({ plugins: 'replace' })
+import { helpers } from './helpers'
 import { webpackCommonConfig } from './webpack.common' // the settings that are common to prod and dev
 
 /**
@@ -43,6 +44,7 @@ const METADATA = webpackMerge({}, {
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
 
+
 export default webpackMerge(webpackCommonConfig({ env: ENV }), {
 
 
@@ -60,7 +62,8 @@ export default webpackMerge(webpackCommonConfig({ env: ENV }), {
    * See: http://webpack.github.io/docs/configuration.html#entry
    */
   entry: {
-    'polyfills': ['./client/polyfills.ts'].concat(HMR ? ['webpack-hot-middleware/client'] : []),
+    // 'polyfills': ['./client/polyfills.ts'].concat(HMR ? ['webpack-hot-middleware/client'] : []),
+    'polyfills': ['./client/polyfills.ts'],
     'main': ['./client/main.ts'].concat(HMR ? ['webpack-hot-middleware/client'] : []),
   },
 
@@ -148,7 +151,7 @@ export default webpackMerge(webpackCommonConfig({ env: ENV }), {
           {
             name: 'zone.js',
             path: 'zone.js/dist/long-stack-trace-zone.js'
-          },
+          }
         ],
         vendor: [
           '@angular/platform-browser',
@@ -195,9 +198,10 @@ export default webpackMerge(webpackCommonConfig({ env: ENV }), {
     }),
 
 
-    // new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin()
+    // Used with webpack-hot-middllware
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+
   ],
 
   /**
