@@ -1,7 +1,8 @@
 {
   "port": 8080,
   "auth": {
-    "token": {
+    "jwt": {
+      // Make sure you change this secret for production
       "secret": "FAMN_AUTH_SECRET"
     }
   }

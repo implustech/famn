@@ -10,13 +10,15 @@
   },
   "public": "../../dist/client",
   "auth": {
+    // node -e "console.log(require('crypto').randomBytes(64).toString('hex')"
     "secret": "ZJApt91sS3bPV275hfobvCTSJYEgv+1n09A8D4bGlqI9S+lq3oePV1Xwla52ZipAXgaj8X/t17/3Tl6UFi1cOQ==",
     "cookie": {
       "name": "famn-jwt"
     },
     "jwt": {
       "audience": "https://yourdomain.com",
-      "issuer": "famn"
+      "issuer": "famn",
+      "expiresIn": "1d"
     }
   }
 }
