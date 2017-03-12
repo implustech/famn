@@ -1,6 +1,5 @@
 import * as globalHooks from '../../../hooks'
-const hooks = require('feathers-hooks')
-const auth = require('feathers-authentication').hooks
+const auth = require('feathers-authentication')
 
 
 // const populateSender = hooks.populate('sentBy', {
@@ -11,7 +10,7 @@ const auth = require('feathers-authentication').hooks
 
 const before = {
   all: [
-    // auth.verifyToken()
+    // auth.hooks.authenticate('jwt')
   ],
   find: [],
   get: [],

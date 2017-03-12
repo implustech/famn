@@ -6,5 +6,9 @@
   {
     "name": "Message",
     "id": "message"
+  },
+  {
+    "name": "User",
+    "id": "user"
   }
 ]

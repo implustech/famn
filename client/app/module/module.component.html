@@ -6,14 +6,14 @@
     <md-list>
       <md-list-item [class.md-active]="navigation?.currentTitle==value.name" *ngFor="let value of modules">
         <button md-button disableRipple="true" md-ripple md-ripple-speed-factor="0.3" (click)="navigation.currentTitle=value.name"
-          [routerLink]="['/module', value.id]">
+          [routerLink]="['/module', value.id]" class="menu-button">
           {{ value.name }}
         </button>
       </md-list-item>
     </md-list>
   </md-sidenav>
   <div #content class="app-content">
-    <md-toolbar color="primary" class="fixed-toolbar md-elevation-z6">
+    <md-toolbar color="primary" class="fixed-toolbar mat-elevation-z6">
       <button md-icon-button (click)="menu.toggle()"
         fxHide="false" fxHide.gt-md fxLayoutAlign="center center">
         <md-icon class="md-dark">list</md-icon>

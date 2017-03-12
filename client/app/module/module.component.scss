@@ -14,7 +14,13 @@ md-sidenav-container,
 
 md-sidenav {
   width: 200px;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+
+  .menu-button {
+    text-align: left;
+  }
 }
+
 
 .app-content-inner {
   position: absolute;
