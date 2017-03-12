@@ -78,7 +78,7 @@ yarn run build:server:prod
 ### To do
 
 - ( ) CLI for project initialization
-- ( ) user authorization
+- (*) user authorization
 - (*) robust material design data-table (ag-grid)
 - ( ) charts
 - ( ) unit test

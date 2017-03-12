@@ -1,8 +1,9 @@
-const feathers = require('feathers/client')
-const socketio = require('feathers-socketio/client')
+import feathers from 'feathers/client'
+import socketio from 'feathers-socketio/client'
 const io = require('socket.io-client')
-const hooks = require('feathers-hooks')
-const authentication = require('feathers-authentication-client')
+import hooks from 'feathers-hooks'
+import authentication from 'feathers-authentication-client'
+import RxJS from 'rxjs'
 
 import { Injectable } from '@angular/core'
 import { Router, CanActivate } from '@angular/router'

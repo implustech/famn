@@ -1,0 +1,21 @@
+<h1 md-dialog-title>User</h1>
+<md-dialog-content fxFlex fxLayout="column" fxLayoutAlign="start" fxLayoutGap="10px">
+  <!--<form #addUserForm="ngForm">-->
+  <md-input-container>
+    <input mdInput placeholder="Email" type="email" [(ngModel)]="user.email" name="email" required>
+  </md-input-container>
+  <md-input-container>
+    <input mdInput placeholder="Password" type="password" [(ngModel)]="user.password" name="password" required>
+  </md-input-container>
+  <md-select placeholder="Roles" [(ngModel)]="user.roles[0]" name="role" >
+    <md-option *ngFor="let r of roles" [value]="r">{{ r }}</md-option>
+  </md-select>
+  <!--</form>-->
+</md-dialog-content>
+<md-dialog-actions style="margin-top: 10px">
+  <button md-raised-button color="accent"
+    (click)="dialogRef.close(user)"
+    [disabled]="!user.email || !user.password"> {{mode === 'new' ? 'Create' : 'Update'}}
+  </button>
+  <button md-raised-button md-dialog-close>Cancel</button>
+</md-dialog-actions>

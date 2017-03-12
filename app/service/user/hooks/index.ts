@@ -2,24 +2,28 @@ import * as globalHooks from '../../../hooks'
 const hooks = require('feathers-hooks')
 const auth = require('feathers-authentication')
 const local = require('feathers-authentication-local')
+const permissions = require('feathers-permissions')
 
-
-const myCustomQueryWithCurrentUser = function(options = {}) {
-  return function(hook) {
-    hook.params.query.userId = hook.params.user._id
-    return Promise.resolve(hook)
-  }
-}
+const adminPermission = permissions.hooks.checkPermissions({
+  roles: ['ADMIN'],
+  on: 'user',
+  field: 'roles'
+})
 
 const before = {
-  all: [],
+  all: [
+  ],
   find: [
+    adminPermission,
+    permissions.hooks.isPermitted(),
     auth.hooks.authenticate('jwt')
   ],
   get: [
     auth.hooks.authenticate('jwt')
   ],
   create: [
+    adminPermission,
+    permissions.hooks.isPermitted(),
     local.hooks.hashPassword()
   ],
   update: [
@@ -31,6 +35,8 @@ const before = {
     local.hooks.hashPassword()
   ],
   remove: [
+    adminPermission,
+    permissions.hooks.isPermitted(),
     auth.hooks.authenticate('jwt'),
   ]
 }

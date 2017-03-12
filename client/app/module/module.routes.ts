@@ -21,6 +21,10 @@ export const ROUTES = [
       {
         path: 'message',
         loadChildren: './message/index#MessageModule'
+      },
+      {
+        path: 'user',
+        loadChildren: './user/index#UserModule'
       }
     ]
   },

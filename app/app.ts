@@ -52,4 +52,11 @@ app.use(compress())
   .configure(service)
   .configure(middleware)
 
+// This ADMIN user is for new development, update  with strong credential or remove it in production
+app.service('users').create({
+  email: 'mo@po.da',
+  password: 'do',
+  roles: ['ADMIN']
+})
+
 export default app

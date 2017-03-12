@@ -162,6 +162,12 @@ export default webpackMerge(webpackCommonConfig({ env: ENV }), {
           '@angular/http',
           '@angular/router',
           '@angularclass/hmr',
+          'socket.io-client',
+          'feathers',
+          'feathers-socketio',
+          'feathers-hooks',
+          'feathers-authentication-client',
+          'feathers-reactive',
           'rxjs',
         ]
       },

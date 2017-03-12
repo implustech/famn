@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="start" fxLayoutWrap="wrap">
+  <md-card class="user-card" *ngFor="let u of users" fxFlex="31">
+    <md-card-header>
+      <md-card-title>{{u.email}}</md-card-title>
+      <div fxFlex></div>
+      <button md-icon-button [mdMenuTriggerFor]="userMenu">
+        <md-icon>more_vert</md-icon>
+      </button>
+      <md-menu #userMenu="mdMenu">
+        <button md-menu-item (click)="updateUser(u)">
+            <span>Edit</span>
+          </button>
+        <button md-menu-item (click)="removeUser(u._id)">
+          <span>Remove</span>
+        </button>
+      </md-menu>
+    </md-card-header>
+    <md-card-content>
+      <div *ngFor="let r of u.roles; let i = index">{{r}}</div>
+    </md-card-content>
+  </md-card>
+</div>
+
+<button md-fab class="fixed-bottom-right" (click)="addUser()"><md-icon>add</md-icon></button>
