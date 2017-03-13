@@ -167,7 +167,6 @@ export default webpackMerge(webpackCommonConfig({ env: ENV }), {
           'feathers-socketio',
           'feathers-hooks',
           'feathers-authentication-client',
-          'feathers-reactive',
           'rxjs',
         ]
       },
