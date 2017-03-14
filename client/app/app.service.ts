@@ -1,7 +1,8 @@
 import feathers from 'feathers/client'
 import socketio from 'feathers-socketio/client'
 const io = require('socket.io-client')
-import hooks from 'feathers-hooks'
+const hooks = require('feathers-hooks')
+
 import authentication from 'feathers-authentication-client'
 import RxJS from 'rxjs'
 

@@ -48,8 +48,7 @@ export default {
 
   output: {
     path: helpers.root('dist/server'),
-    filename: 'server.bundle.js',
-    libraryTarget: 'commonjs2'
+    filename: 'server.bundle.js'
   },
 
   devtool: 'eval',
@@ -93,7 +92,7 @@ export default {
           {
             loader: 'awesome-typescript-loader',
             options: {
-              configFileName: 'tsconfig.json'
+              configFileName: 'tsconfig.server.json'
             }
           },
         ],

@@ -132,7 +132,7 @@ export function webpackCommonConfig(options) {
             {
               loader: 'awesome-typescript-loader',
               options: {
-                configFileName: 'tsconfig.webpack.json'
+                configFileName: 'tsconfig.server.json'
               }
             },
             {
