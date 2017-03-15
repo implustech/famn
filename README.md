@@ -47,10 +47,12 @@ yarn run start:hmr
 docker-compose -f ./docker/docker-compose.dev.yml up --build
 
 # real time service, check the new message in message module after running below command
-curl 'http://localhost:3030/messages/' -H 'Content-Type: application/json' --data-binary '{ "email": "yourname@yourdomain.com", "message": "Hello Implus" }'
+curl -H 'Content-Type: application/json' \
+  --data-binary '{ "email": "yourname@yourdomain.com", "message": "Hello FAMN" }' \
+  http://localhost:3030/messages/'
 ```
 
-- Go to `http://localhost:3030` for web
+Go to `http://localhost:3030` with default created user `mo@po.da`, password `do`
 
 ### Deploy
 

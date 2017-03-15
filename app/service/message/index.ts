@@ -8,8 +8,8 @@ export default function() {
   let options = {
     Model: MessageModel,
     paginate: {
-      default: 10,
-      max: 100
+      default: 100,
+      max: 200
     }
   }
 
