@@ -1,9 +1,9 @@
-import feathers from 'feathers/client'
-import socketio from 'feathers-socketio/client'
+import * as feathers from 'feathers/client'
+import * as socketio from 'feathers-socketio/client'
 const io = require('socket.io-client')
 const hooks = require('feathers-hooks')
+import * as authentication from 'feathers-authentication-client'
 
-import authentication from 'feathers-authentication-client'
 import RxJS from 'rxjs'
 
 import { Injectable } from '@angular/core'
@@ -11,10 +11,6 @@ import { Router, CanActivate } from '@angular/router'
 import { helpers } from '../config/helpers'
 
 @Injectable()
-/**
- * Feathers websocket service
- * @return {class}
- */
 export class SocketService {
   public socket: any
   public app: any

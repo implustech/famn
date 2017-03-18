@@ -1,11 +1,7 @@
 import * as globalHooks from '../../../hooks'
-const auth = require('feathers-authentication')
+// const auth = require('feathers-authentication')
 
 
-// const populateSender = hooks.populate('sentBy', {
-//   service: 'users',
-//   filed: 'email'
-// })
 
 
 const before = {

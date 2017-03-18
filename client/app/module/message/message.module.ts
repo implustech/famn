@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 
 import { MaterialModule } from '@angular/material'
+import { FlexLayoutModule } from '@angular/flex-layout'
+
 
 import {AgGridModule} from 'ag-grid-angular/main'
 import 'ag-grid/dist/styles/ag-grid.css'
@@ -22,6 +24,7 @@ import { ROUTES } from './message.routes'
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
+    FlexLayoutModule.forRoot(),
     AgGridModule.withComponents([]),
     RouterModule.forChild(ROUTES),
   ]

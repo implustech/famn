@@ -77,6 +77,7 @@ export class ModComponent implements OnInit, OnDestroy, AfterViewInit {
 
   logout(): void {
     this._socketService.logout().then(res => {
+      this._socketService.app.set('user', null)
       this._router.navigate(['/login'])
     })
   }

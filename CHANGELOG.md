@@ -23,3 +23,9 @@
 ### Features
 
 - introduce feathers-permissions to add user authorization
+
+# 0.1.3 (2017-03-17)
+
+### Features
+
+- send message in message panel

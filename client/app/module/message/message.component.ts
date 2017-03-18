@@ -4,12 +4,10 @@ import { MessageService } from './message.service'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs/Observable'
 
-
 import { GridOptions } from 'ag-grid/main'
 
-
 @Component({
-  selector: 'message-module',
+  selector: 'message',
   templateUrl: 'message.component.html',
   providers: [MessageService]
 })
@@ -20,9 +18,11 @@ export class MessageComponent implements OnInit, OnDestroy {
   public gridOptions: GridOptions
   public columnDefs: any[]
   public messages = []
+  public email: string
+  public message: string
 
   constructor(private _store: Store<any>,
-    private _messageService: MessageService) {
+    private messageService: MessageService) {
 
     this.message$ = this._store.select('message')
 
@@ -31,7 +31,7 @@ export class MessageComponent implements OnInit, OnDestroy {
         this.createDataSource()
       })
 
-    this._messageService.resource$.subscribe(res => {
+    this.messageService.resource$.subscribe(res => {
       switch (res.type) {
         case 'find':
           this._store.dispatch({
@@ -44,7 +44,7 @@ export class MessageComponent implements OnInit, OnDestroy {
           //   type: 'MESSAGE_UPDATE',
           //   payload: res.messages
           // })
-          this._messageService.findMessages()
+          this.messageService.findMessages()
           break
         default:
           break
@@ -54,6 +54,8 @@ export class MessageComponent implements OnInit, OnDestroy {
     // ag-grid initialization
     this.gridOptions = <GridOptions>{}
     this.columnDefs = this.createColumnDefs()
+    this.email = 'anonymous'
+    this.message = ''
   }
 
 
@@ -62,12 +64,12 @@ export class MessageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.messageSubscription.unsubscribe()
-    this._messageService.off()
+    this.messageService.off()
   }
 
   onGridReady() {
     this.gridOptions.api.sizeColumnsToFit()
-    this._messageService.findMessages()
+    this.messageService.findMessages()
   }
 
   createColumnDefs() {
@@ -107,5 +109,13 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
 
     this.gridOptions.api.setDatasource(dataSource)
+  }
+
+  createMessage() {
+    this.messageService.createMessage({
+      email: this.email,
+      message: this.message
+    })
+
   }
 }

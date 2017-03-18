@@ -19,7 +19,7 @@ export class UserService {
 
   findUsers() {
     return Observable.fromPromise(this.socketUsersService.find())
-      .map(res => res.data)
+      .map((res: {data: any[]}) => res.data)
       .catch(this.handleError)
   }
 
