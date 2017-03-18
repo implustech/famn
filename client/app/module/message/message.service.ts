@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Response } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import { SocketService } from '../../app.service'
 import 'rxjs/add/observable/fromPromise'
@@ -22,6 +23,7 @@ export class MessageService {
         messages: res
       })
     })
+
   }
 
   findMessages() {
